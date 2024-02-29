@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/flight")
 public class FlightController {
     @Autowired
     FlightService flightService;
@@ -43,8 +43,10 @@ public class FlightController {
         boolean done = flightService.updateFlightBooking(id, fb);
         if(done)
         {
-            return "Successfully updated";
-        }else{
+            return "Updated";
+        }
+        else
+        {
             return "ID Not found Enter the correct ID to be updated";
         }
     }
@@ -60,4 +62,25 @@ public class FlightController {
             return "ID Not found Enter the correct ID to be deleted";
         }
     }
+    //Sort
+    @GetMapping("/display/{name}")
+    public List<FlightBooking> getByFlightNameSorted(@PathVariable("name") String name)
+    {
+        List<FlightBooking> flightList = flightService.sortByFlightBookingName(name);
+        return flightList;
+    }
+    //pagination
+    @GetMapping("/display/{pageSize}/{pageNumber}")
+    public List<FlightBooking> getPagination(@PathVariable("pageSize") int pageSize,@PathVariable("pageNumber") int pageNumber)
+    {
+        List<FlightBooking> flightList = flightService.paginationOfFlightBookings(pageSize, pageNumber);
+        return flightList;
+    }
+    //pagination + sorting
+    @GetMapping("/display/{pageSize}/{pageNumber}/{field}")
+    public List<FlightBooking> getPaginationandSort(@PathVariable("pageSize") int pageSize,@PathVariable("pageNumber") int pageNumber,@PathVariable("field") String field)
+    {
+        List<FlightBooking> flightList = flightService.SortAndPagenation(pageSize, pageNumber, field);
+        return flightList;
+    } 
 }
