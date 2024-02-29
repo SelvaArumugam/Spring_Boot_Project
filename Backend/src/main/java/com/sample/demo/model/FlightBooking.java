@@ -1,5 +1,7 @@
 package com.sample.demo.model;
 
+
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +15,9 @@ public class FlightBooking {
     String flightName;
     String flightOwnedBy;
     int minimumPrice;
+    //@JsonProperty("maximumPrice")
     int maximumPrice;
+    //@JsonFormat(pattern = "yyyy-MM-dd")
     public FlightBooking() {
     }
     public FlightBooking(int flightId, String flightName, String flightOwnedBy, int minimumPrice, int maximumPrice) {
